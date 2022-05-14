@@ -81,8 +81,6 @@
 	{/each}
 </div>
 
-<pre>{JSON.stringify(files, null, 2)}</pre>
-
 <input multiple type="file" name="file upload" id="" bind:files on:change={readFiles} />
 
 <style>
