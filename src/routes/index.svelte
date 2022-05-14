@@ -1,2 +1,9 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+	import Gif from '../components/Gif.svelte';
+	import Images from '../components/Images.svelte';
+</script>
+
+<div class="flex flex-col items-center gap-2">
+	<Gif />
+	<Images />
+</div>
