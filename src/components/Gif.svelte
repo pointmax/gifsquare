@@ -1,35 +1,28 @@
 <script>
 	import { onMount } from 'svelte';
 	import * as gifshot from 'gifshot';
-	import { imagesArray } from '../stores';
-
-	let gifSrc;
-	let interval = 1;
+	import { gifSrc, interval, imagesArray } from '../stores';
 
 	const createGif = () => {
 		console.log('creating gif!');
 		gifshot.createGIF(
 			{
 				images: $imagesArray,
-				interval,
+				interval: $interval,
 				gifWidth: 600,
 				gifHeight: 600
 			},
 			function (obj) {
 				if (!obj.error) {
-					gifSrc = obj.image;
+					$gifSrc = obj.image;
 				}
 			}
 		);
 	};
 
-	$: $imagesArray?.length && interval && gifshot?.createGIF && createGif();
+	$: $imagesArray?.length && $interval && gifshot?.createGIF && createGif();
 </script>
 
-{#if gifSrc && $imagesArray.length}
-	<img src={gifSrc} alt="gif" class="shadow" />
-	<input type="range" min="0.1" max="10" step="0.1" bind:value={interval} />
-	<input type="number" min="0.1" max="10" step="0.1" bind:value={interval} />
-	<a href={gifSrc} download="animation.gif">Download</a>
-	~{Math.ceil(((gifSrc.length / 4) * 3) / 1024)} KB
+{#if $gifSrc && $imagesArray.length}
+	<img src={$gifSrc} alt="gif" class="shadow" />
 {/if}

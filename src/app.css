@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+	@apply bg-gray-100;
+}
+
+.button {
+	@apply bg-primary-600;
+	@apply cursor-pointer;
+	@apply shadow;
+	@apply hover:bg-primary-500;
+	@apply hover:shadow-lg;
+	@apply transition-all;
+	@apply px-4;
+	@apply py-2;
+	@apply rounded-lg;
+	@apply text-white;
+}
