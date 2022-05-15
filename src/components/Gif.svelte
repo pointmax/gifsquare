@@ -24,15 +24,12 @@
 	};
 
 	$: $imagesArray?.length && interval && gifshot?.createGIF && createGif();
-
-	onMount(async () => {
-		// client-only code here
-	});
 </script>
 
-{#if gifSrc}
+{#if gifSrc && $imagesArray.length}
 	<img src={gifSrc} alt="gif" class="shadow" />
 	<input type="range" min="0.1" max="10" step="0.1" bind:value={interval} />
 	<input type="number" min="0.1" max="10" step="0.1" bind:value={interval} />
 	<a href={gifSrc} download="animation.gif">Download</a>
+	~{Math.ceil(((gifSrc.length / 4) * 3) / 1024)} KB
 {/if}
