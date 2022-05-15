@@ -8,13 +8,16 @@
 	let CANVAS_HEIGHT = 800;
 	let inputFieldFile;
 	let dragenter = false;
+	export const uniqueId = () => {
+		return Math.random().toString(16).slice(2);
+	};
 
 	const readFiles = async () => {
 		if (files?.length) {
 			Array.from(files).forEach(async (file) => {
 				let imageString = await convertFileToBase64(file);
 				toSquare(imageString, (squareUrl) => {
-					$imagesArray = [...$imagesArray, squareUrl];
+					$imagesArray = [...$imagesArray, { src: squareUrl, id: uniqueId() }];
 				});
 			});
 		}

@@ -7,7 +7,7 @@
 		console.log('creating gif!');
 		gifshot.createGIF(
 			{
-				images: $imagesArray,
+				images: $imagesArray.flatMap((el) => el.src),
 				interval: $interval,
 				gifWidth: 600,
 				gifHeight: 600
