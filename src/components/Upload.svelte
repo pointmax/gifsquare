@@ -105,7 +105,7 @@
 {#if dragenter}
 	<div
 		transition:fade={{ duration: 100 }}
-		class=" z-50 fixed inset-0 bg-gray-400 flex justify-center items-center text-white"
+		class="z-50 fixed inset-0 bg-gray-400 bg-opacity-75 flex justify-center items-center text-white"
 		on:dragover|preventDefault
 		on:drop|preventDefault={handleFileDrop}
 		on:dragleave={() => (dragenter = false)}
@@ -127,6 +127,3 @@
 />
 
 <label for="fileUpload" class="button">Upload files</label>
-
-<style>
-</style>

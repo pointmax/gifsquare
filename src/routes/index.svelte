@@ -6,14 +6,13 @@
 	import Upload from '../components/Upload.svelte';
 </script>
 
-<div class="flex py-4 min-h-screen items-center justify-center">
+<div class="flex py-4 min-h-[80vh] items-center justify-center">
 	<div
-		class="bg-white rounded-lg shadow-md flex-grow container max-w-3xl items-center gap-2 justify-center flex flex-col p-4 min-h-[30rem] mx-4"
+		class="bg-white bg-opacity-50 rounded-lg shadow-md flex-grow container max-w-3xl items-center justify-center flex flex-col py-8 px-4 min-h-[30rem] mx-4 gap-4"
 	>
 		<Gif />
-		<Options />
-
 		<Images />
+		<Options />
 		<div class="flex gap-2">
 			<Upload />
 			<Download />

@@ -28,7 +28,7 @@
 	};
 </script>
 
-<div class="flex overflow-x-auto max-w-full">
+<div class="flex overflow-x-auto w-full justify-center">
 	{#each $imagesArray as image, index (image.id)}
 		<div
 			class="w-20 shadow rounded m-2 group relative cursor-move flex-shrink-0"
@@ -41,7 +41,7 @@
 			on:dragleave={() => (hovering = null)}
 			class:is-active={hovering === index}
 		>
-			<img src={image.src} alt="" />
+			<img src={image.src} alt="" class="transition-opacity" />
 			<button
 				class="hidden group-hover:block absolute -top-3 -right-3 rounded-full w-6 h-6 bg-white shadow hover:shadow-lg"
 				title="löschen"
@@ -55,9 +55,6 @@
 </div>
 
 <style>
-	.is-active {
-		@apply bg-primary-300;
-	}
 	.is-active img {
 		@apply opacity-50;
 	}
