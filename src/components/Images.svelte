@@ -7,16 +7,16 @@
 	const drop = (event, target) => {
 		event.dataTransfer.dropEffect = 'move';
 		const start = parseInt(event.dataTransfer.getData('text/plain'));
-		const newTracklist = $imagesArray;
+		const newImagesArray = $imagesArray;
 
 		if (start < target) {
-			newTracklist.splice(target + 1, 0, newTracklist[start]);
-			newTracklist.splice(start, 1);
+			newImagesArray.splice(target + 1, 0, newImagesArray[start]);
+			newImagesArray.splice(start, 1);
 		} else {
-			newTracklist.splice(target, 0, newTracklist[start]);
-			newTracklist.splice(start + 1, 1);
+			newImagesArray.splice(target, 0, newImagesArray[start]);
+			newImagesArray.splice(start + 1, 1);
 		}
-		$imagesArray = newTracklist;
+		$imagesArray = newImagesArray;
 		hovering = null;
 	};
 
@@ -29,9 +29,9 @@
 </script>
 
 <div class="flex overflow-x-auto max-w-full">
-	{#each $imagesArray as image, index (image.src)}
+	{#each $imagesArray as image, index (image.id)}
 		<div
-			class="w-20 shadow rounded m-2 group relative cursor-move"
+			class="w-20 shadow rounded m-2 group relative cursor-move flex-shrink-0"
 			animate:flip={{ duration: 200 }}
 			draggable={true}
 			on:dragstart={(event) => dragstart(event, index)}
@@ -43,7 +43,7 @@
 		>
 			<img src={image.src} alt="" />
 			<button
-				class="hiddens group-hover:block absolute -top-3 -right-3 rounded-full w-6 h-6 bg-white shadow hover:shadow-lg"
+				class="hidden group-hover:block absolute -top-3 -right-3 rounded-full w-6 h-6 bg-white shadow hover:shadow-lg"
 				title="löschen"
 				on:click={() =>
 					($imagesArray = $imagesArray.filter((existing) => existing.id !== image.id))}
