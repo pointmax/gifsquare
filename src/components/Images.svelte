@@ -1,10 +1,13 @@
 <script>
 	import { imagesArray } from '../stores';
+	import { fade } from 'svelte/transition';
+
 	let files;
 
 	let CANVAS_WIDTH = 800;
 	let CANVAS_HEIGHT = 800;
 	let inputFieldFile;
+	let dragenter = false;
 
 	const readFiles = async () => {
 		if (files?.length) {
@@ -65,7 +68,50 @@
 		};
 		img.src = src;
 	};
+
+	const handleFileDrop = (e) => {
+		dragenter = false;
+		files = dataTransferToFilesArray(e.dataTransfer);
+		readFiles();
+	};
+
+	export const dataTransferToFilesArray = (dataTransfer) => {
+		const files = [];
+		if (dataTransfer.items) {
+			for (let i = 0; i < dataTransfer.items.length; i++) {
+				// If dropped items aren't files, reject them
+				if (dataTransfer.items[i].kind === 'file') {
+					files.push(dataTransfer.items[i].getAsFile());
+				}
+			}
+		} else {
+			// Use DataTransfer interface to access the file(s)
+			for (let i = 0; i < dataTransfer.files.length; i++) {
+				files.push(dataTransfer.files[i]);
+			}
+		}
+		return files;
+	};
 </script>
+
+<svelte:body
+	on:dragenter={(e) => {
+		if (e?.dataTransfer?.items?.[0]?.kind === 'file') {
+			dragenter = true;
+		}
+	}} />
+
+{#if dragenter}
+	<div
+		transition:fade={{ duration: 100 }}
+		class=" z-50 fixed inset-0 bg-indigo-400 flex justify-center items-center text-white"
+		on:dragover|preventDefault
+		on:drop|preventDefault={handleFileDrop}
+		on:dragleave={() => (dragenter = false)}
+	>
+		drag and drop images here
+	</div>
+{/if}
 
 <div class="flex overflow-x-auto">
 	{#each $imagesArray as image}
@@ -85,11 +131,15 @@
 	multiple
 	type="file"
 	name="file upload"
-	id=""
+	id="fileUpload"
+	accept="image/jpeg,image/png,image/gif,image/tiff,image/webp,image/heic"
 	bind:this={inputFieldFile}
 	bind:files
 	on:change={readFiles}
+	class="hidden"
 />
+
+<label for="fileUpload">Upload files</label>
 
 <style>
 </style>

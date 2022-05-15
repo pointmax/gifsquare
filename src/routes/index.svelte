@@ -3,7 +3,7 @@
 	import Images from '../components/Images.svelte';
 </script>
 
-<div class="flex flex-col items-center gap-2 my-4">
+<div class="flex flex-col items-center gap-2 py-4 min-h-screen">
 	<Gif />
 	<Images />
 </div>
