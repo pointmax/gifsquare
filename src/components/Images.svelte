@@ -2,21 +2,21 @@
 	import { imagesArray } from '../stores';
 	let files;
 
-	export let imagesSquare = [];
-
 	let CANVAS_WIDTH = 800;
 	let CANVAS_HEIGHT = 800;
+	let inputFieldFile;
 
 	const readFiles = async () => {
 		if (files?.length) {
 			Array.from(files).forEach(async (file) => {
 				let imageString = await convertFileToBase64(file);
 				toSquare(imageString, (squareUrl) => {
-					imagesSquare = [...imagesSquare, squareUrl];
-					$imagesArray = imagesSquare;
+					$imagesArray = [...$imagesArray, squareUrl];
 				});
 			});
 		}
+		inputFieldFile.value = null;
+		files = null;
 	};
 
 	const convertFileToBase64 = (file) =>
@@ -81,7 +81,15 @@
 	{/each}
 </div>
 
-<input multiple type="file" name="file upload" id="" bind:files on:change={readFiles} />
+<input
+	multiple
+	type="file"
+	name="file upload"
+	id=""
+	bind:this={inputFieldFile}
+	bind:files
+	on:change={readFiles}
+/>
 
 <style>
 </style>
