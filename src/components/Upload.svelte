@@ -130,5 +130,7 @@
 	{#if !$imagesArray?.length}
 		<span class="text-gray-500 text-sm">drag and drop images here</span>
 	{/if}
-	<label for="fileUpload" class="button">Upload files</label>
+	<label for="fileUpload" class="button">
+		Add {#if $imagesArray?.length}more{/if} images
+	</label>
 </div>
